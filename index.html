@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here.">
+  <base href="/">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+    }
+  </style>
+  <title>dog-meme</title>
+</head>
+
+<body>
+  
+  <button id="duplicate" class="button">Duplicate</button>
+
+  <button id="toggleBackGroundColor" class="button">Change Background Color</button>
+  
+  <button id="changeTitle" class="button">Change Title</button>
+  
+  <button id="deleteButton" class="button">Delete</button>
+
+  <button id = "detailBtn" class="detailsButton">Detail </button>
+
+  <div id="app">
+  <dog-meme></dog-meme>
+  </div>
+
+  <script type="module" src="./src/dog-meme.js"></script>
+<script>
+  const button = document.querySelector('#duplicate');
+const toggleButton = document.querySelector("#toggleBackGroundColor");
+const changeTitle = document.querySelector("#changeTitle");
+const deleteButton = document.querySelector("#deleteButton");
+const orginalCards = document.querySelectorAll('.all');
+const wordsInCard = document.querySelectorAll('p');
+const detailsButton = document.getElementById("detailsBtn");
+
+wordsInCard.forEach(function(paragraph) {
+  paragraph.style.display = "none";
+});
+
+button.addEventListener("click", function(e){ 
+
+ const orginalCard = document.querySelectorAll('dog-meme');
+ const cloneCard =  orginalCard.cloneNode(true); 
+ document.querySelector('#app').appendChild(orginalCard);       
+});
+
+detailsButton.addEventListener("mouseenter", (event) => {
+  // highlight the mouseenter target
+  event.target.style.background= "orange";
+  detailsButton.focus();
+});
+
+detailsButton.addEventListener("mouseleave", (event) => {
+  event.target.style.background = "";
+  detailsButton.blur()
+});
+
+detailsButton.addEventListener("click", function(e){
+  wordsInCard.forEach(function(paragraph) {
+    if (paragraph.style.display === "none"){
+      paragraph.style.display = "block";
+    } else {
+      paragraph.style.display = "none";
+    }
+  });
+});
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+toggleButton.addEventListener("click", function(e){   
+  orginalCards.forEach(function(card) {
+    card.style.backgroundColor = getRandomColor();
+  });
+});
+
+changeTitle.addEventListener("click", function(e){   
+  const title = document.getElementById("Title");
+  if (title.textContent === "Me When The Code Works") {
+    title.textContent = "Coffeeeeeeee";
+  } else {
+    title.textContent = "Me When The Code Works";
+  }
+});
+
+deleteButton.addEventListener("click", function(e){ 
+  const cards = document.querySelectorAll('.all');
+  for (let i = 0; i < cards.length; i++) {
+    document.body.removeChild(cards[i]);
+  }
+});
+</script>
+
+</body>
+
+</html>
